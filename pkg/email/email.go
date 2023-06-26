@@ -1,11 +1,8 @@
 package email
 
 import (
-	"log"
 	"net/smtp"
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 type EmailResult struct {
@@ -21,19 +18,8 @@ func getResultMessage(e error) string {
 	return "Email successfully sent"
 }
 
-func loadEnv() {
-
-	err := godotenv.Load()
-
-	if err != nil {
-		log.Fatalf("Error loading .env file. Err: %s", err)
-	}
-}
-
 // TODO: change to use environment variables
 func SendEmail(email string, message string) EmailResult {
-	loadEnv()
-
 	port := os.Getenv("SMTP_PORT")
 	host := os.Getenv("SMTP_HOST")
 	senderEmail := os.Getenv("SMTP_LOGIN")

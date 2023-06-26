@@ -2,6 +2,7 @@ package token
 
 import (
 	"errors"
+	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -16,7 +17,7 @@ var claims = &jwt.RegisteredClaims{
 	ID:        "1",
 }
 
-var key = []byte("SECRET_PASSWORD")
+var key = []byte(os.Getenv("AUTH_JWT_SECRET"))
 
 func GenerateSignedString() (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

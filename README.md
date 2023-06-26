@@ -34,3 +34,5 @@ If the request is executed successfully, the server returns 200 status code and 
 Otherwise it returns status code 400 and a message in plain text or JSON format.
 
 The app relies on the environment variables that are read from the `.env` file that you must create based on `template.env`. It was tested with Gmail but should work with other providers. For Gmail (and potentially other providers) the password will not work and you must generate an app password.
+
+Note: JWT token is valid for 2 weeks, so you may want to change that in `pkg/jwt`.
