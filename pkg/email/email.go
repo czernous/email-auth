@@ -10,15 +10,6 @@ type EmailResult struct {
 	Message string
 }
 
-func getResultMessage(e error) string {
-	if e != nil {
-		return "Failed to send email: " + e.Error()
-	}
-
-	return "Email successfully sent"
-}
-
-// TODO: change to use environment variables
 func SendEmail(email string, message string) EmailResult {
 	port := os.Getenv("SMTP_PORT")
 	host := os.Getenv("SMTP_HOST")
@@ -41,10 +32,15 @@ func SendEmail(email string, message string) EmailResult {
 
 	err := smtp.SendMail(host+":"+port, auth, senderEmail, to, msg)
 
-	res := EmailResult{
-		Ok:      err != nil,
-		Message: getResultMessage(err),
+	if err != nil {
+		return EmailResult{
+			Ok:      false,
+			Message: "Failed to send email: " + err.Error(),
+		}
 	}
 
-	return res
+	return EmailResult{
+		Ok:      true,
+		Message: "Email successfully sent",
+	}
 }

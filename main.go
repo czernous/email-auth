@@ -25,6 +25,6 @@ func main() {
 
 	server := router.SetupRoutes()
 
-	log.Fatal(http.ListenAndServe(":6000", server))
+	log.Fatal(http.ListenAndServe(":5001", server))
 
 }
