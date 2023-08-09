@@ -3,6 +3,7 @@ package router
 import (
 	"email-auth/handler"
 	"net/http"
+	"os"
 )
 
 type Router struct {
@@ -14,9 +15,14 @@ func (r *Router) HandleRoute(method string, path string, handler http.HandlerFun
 		if req.Method != method {
 
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		} else {
-			handler(w, req)
+			return
 		}
+		if req.Header.Get("authApiKey") != os.Getenv("AUTH_API_KEY") {
+			http.Error(w, "Wrong authApiKey", http.StatusUnauthorized)
+			return
+		}
+
+		handler(w, req)
 
 	})
 
