@@ -38,7 +38,7 @@ func main() {
 	}
 
 	if err != nil {
-		log.Fatalf("Error loading .env file. Err: %s", err)
+		log.Printf("Error loading .env file. Err: %s", err)
 	}
 
 	server := router.SetupRoutes()
