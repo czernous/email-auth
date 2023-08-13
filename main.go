@@ -17,10 +17,16 @@ func main() {
 
 	port := os.Getenv("AUTH_API_PORT")
 
+	functionsPort := os.Getenv("FUNCTIONS_CUSTOMHANDLER_PORT")
+
 	apiKey := os.Getenv("AUTH_API_KEY")
 
-	if len(port) < 1 {
+	if len(port) < 1 && len(functionsPort) < 1 {
 		port = "5000"
+	}
+
+	if len(functionsPort) > 1 {
+		port = functionsPort
 	}
 
 	if len(apiKey) < 1 {

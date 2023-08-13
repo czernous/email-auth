@@ -18,9 +18,9 @@ Intended use:
 
 The app only has one endpoint `/token` and only accepts GET requests
 
-When the token needs to be validated, provide it in the `validate` query string (`/token?validate=<token>`).
+When the token needs to be validated, provide it in the `validate` query string (`/api/token?validate=<token>`).
 
-When new links need to be generated, provide a user's email and protected URL in the query string like so `/token?email=user@example.com&protected-url=https://example.com/protected`
+When new links need to be generated, provide a user's email and protected URL in the query string like so `/api/token?email=user@example.com&protected-url=https://example.com/protected`
 
 If the request is executed successfully, the server returns 200 status code and the following JSON:
 

@@ -34,6 +34,6 @@ func SetupRoutes() http.Handler {
 	}
 	// TODO: register routes and handlers here, add respective handlers to /handler/routename.go
 	//mux.HandleRoute("GET", "/hello", http.HandlerFunc(handleHello))
-	mux.HandleRoute("GET", "/token", http.HandlerFunc(handler.HandleToken))
+	mux.HandleRoute("GET", "/api/token", http.HandlerFunc(handler.HandleToken))
 	return mux
 }
