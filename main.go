@@ -7,29 +7,34 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/rs/cors"
 )
+
+func tryGetEnvVars(vars [7]string) {
+	// iterate
+	for _, v := range vars {
+		temp := os.Getenv(v)
+		if len(temp) < 1 {
+			log.Fatalf("Could not load variable %s", v)
+			os.Exit(1)
+		}
+	}
+}
 
 func main() {
 
 	err := godotenv.Load()
 
-	secret := os.Getenv("AUTH_JWT_SECRET")
-
 	port := os.Getenv("AUTH_API_PORT")
 
-	apiKey := os.Getenv("AUTH_API_KEY")
-
-	if len(port) < 1 {
-		port = "5000"
-	}
-
-	if len(apiKey) < 1 {
-		log.Fatalf("AUTH_API_KEY is not set")
-	}
-
-	if len(secret) < 1 {
-		log.Fatalf("AUTH_JWT_SECRET is not set")
-	}
+	tryGetEnvVars([7]string{
+		"AUTH_JWT_SECRET",
+		"AUTH_API_PORT",
+		"AUTH_API_KEY",
+		"SMTP_HOST",
+		"SMTP_PORT",
+		"SMTP_LOGIN",
+		"SMTP_PASSWORD"})
 
 	if err != nil {
 		log.Printf("Error loading .env file. Err: %s", err)
@@ -37,6 +42,6 @@ func main() {
 
 	server := router.SetupRoutes()
 
-	log.Fatal(http.ListenAndServe(":"+port, server))
+	log.Fatal(http.ListenAndServe(":"+port, cors.AllowAll().Handler(server)))
 
 }
