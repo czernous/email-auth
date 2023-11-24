@@ -34,14 +34,12 @@ RUN GOOS=linux GOARCH=amd64 \
     -ldflags="-w -s" \
     -o main
 
-CMD [ "./main" ]
+FROM alpine:3.18
 
-# FROM scratch
+WORKDIR /root/
 
-# WORKDIR /root/
-
-# COPY --from=builder /app/main .
+COPY --from=builder /app/main .
 
 
-# ENTRYPOINT ["./main"]
+ENTRYPOINT ["./main"]
 
